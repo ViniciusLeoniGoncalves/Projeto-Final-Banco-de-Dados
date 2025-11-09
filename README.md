@@ -37,4 +37,6 @@ db_host=localhost
 db_user=root
 db_password=SUASENHA
 db_name=NOMEdoBANCO
+db_export_path_file="C:\\Caminho\\inteiro\\Repositoriolocal\\Projeto-Final-Banco-de-Dados\\data\\db_export"
+
 ```
