@@ -69,7 +69,7 @@ CREATE TABLE Analise (
 ALTER TABLE Municipio ADD CONSTRAINT FK_Municipio_2
     FOREIGN KEY (fk_Estado_UF)
     REFERENCES Estado (UF)
-    ON DELETE CASCADE;
+    ON DELETE NO ACTION;
    
 ALTER TABLE Coleta_Amostra_LocalColeta
 ADD UNIQUE (NumeroDaAmostra);
@@ -88,12 +88,12 @@ ADD CONSTRAINT FK_Analise_2
 ALTER TABLE Analise ADD CONSTRAINT FK_Analise_3
     FOREIGN KEY (fk_Classificacao_Parametro_ciano_)
     REFERENCES Classificacao (Parametro_ciano_)
-    ON DELETE CASCADE;
+    ON NO ACTION;
  
 ALTER TABLE Abastecido ADD CONSTRAINT FK_Abastecido_1
     FOREIGN KEY (fk_Municipio_CodigoDoIBGE)
     REFERENCES Municipio (CodigoDoIBGE)
-    ON DELETE CASCADE;
+    ON DELETE NO ACTION;
  
 ALTER TABLE Abastecido ADD CONSTRAINT FK_Abastecido_2
     FOREIGN KEY (fk_Abastecimento_CodigoFormaDeAbastecimento)

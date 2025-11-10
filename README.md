@@ -29,7 +29,7 @@ pip install csv
 ```
 ---
 
-🔑 Credenciais
+Credenciais
 
 Crie um arquivo .env na raiz do projeto com suas credenciais:
 ```bash
