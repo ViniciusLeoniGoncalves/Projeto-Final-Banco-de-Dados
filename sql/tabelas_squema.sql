@@ -78,7 +78,6 @@ ALTER TABLE Coleta_Amostra_LocalColeta ADD CONSTRAINT FK_Coleta_Amostra_LocalCol
     FOREIGN KEY (fk_Municipio_CodigoDoIBGE)
     REFERENCES Municipio (CodigoDoIBGE);
     
-
 ALTER TABLE Analise
 ADD CONSTRAINT FK_Analise_2
     FOREIGN KEY (fk_Amostra_DataColeta, fk_Amostra_Hora, fk_Amostra_NumeroDaAmostra)
