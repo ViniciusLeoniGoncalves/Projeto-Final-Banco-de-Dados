@@ -10,10 +10,12 @@ from pandasql import sqldf
 # carregar CSVs
 #########################
 
+base_dir = os.path.dirname(__file__)
+
 @st.cache_data
 def carregar_tabelas():
     tabelas = {}
-    pasta_dados = "dados"
+    pasta_dados = os.path.join(base_dir, "..", "data", "db_export")
 
     arquivos_csv = [f for f in os.listdir(pasta_dados) if f.endswith('.csv')]
     for arquivo in sorted(arquivos_csv):
@@ -50,7 +52,7 @@ with col1:
     st.title("Visualizador de dados do SISAGUA")
 
 with col2:
-    st.image("sus-sistema-unico-de-saude.png", width=150)
+    st.image(os.path.join(base_dir, "..", "data" ,"sus-sistema-unico-de-saude.png"), width=150)
 
 st.markdown("""
     Este é um projeto desenvolvido para a disciplina de Banco de Dados. Os dados utilizados é sobre o nível de qualidade de água de amostras que foram 
