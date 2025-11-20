@@ -52,7 +52,7 @@ db_export_path_file="C:\\Users\\SeuUsuario\\CaminhoCompleto\\Projeto-Final-Banco
 
 A versão online do projeto está disponível em: [Streamlit Community Cloud - Projeto Final](https://projeto-final-banco-de-dados-20252.streamlit.app/).
 
-## Executando a interface Web (Streamlit)
+## Executando a interface Web (Streamlit) localmente
 
 O Streamlit permite visualizar e consultar os dados exportados do banco.
 Para executá-la, abra um terminal na raiz do projeto e rode:
