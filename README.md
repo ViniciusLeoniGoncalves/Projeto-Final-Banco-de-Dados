@@ -17,6 +17,7 @@ Os dados foram extraídos de arquivos CSV de domínio público do Sistema Único
 
 ### Bibliotecas para o Python
 
+| Biblioteca | Uso |
 | `mysql-connector-python` | Driver de comunicação pra automatizar população do banco |
 | `csv` | Manipulação e leitura da fonte de dados |
 | `python-dotenv` | Controle seguro de credenciais |
