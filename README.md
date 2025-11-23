@@ -14,6 +14,9 @@ Os dados foram extraídos de arquivos CSV de domínio público do Sistema Único
 | Python 3.9+ | Automação da carga |
 | MySQL 8.0 | Banco relacional |
 | CSV | Fonte de dados |
+
+### Bibliotecas para o Python
+
 | `mysql-connector-python` | Driver de comunicação pra automatizar população do banco |
 | `csv` | Manipulação e leitura da fonte de dados |
 | `python-dotenv` | Controle seguro de credenciais |
