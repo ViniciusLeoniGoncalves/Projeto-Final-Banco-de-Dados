@@ -110,22 +110,11 @@ with aba3:
         ### Consultas rápidas
     """)
 
-# query default
     if "current_query" not in st.session_state:
-        st.session_state.current_query = """
-        SELECT 
-            m.NomeMunicipio, 
-            e.UF,
-            COUNT(ca.NumeroDaAmostra) AS QuantidadeAmostras
-        FROM 
-            Municipio m 
-            JOIN Estado e ON m.fk_Estado_UF = e.UF 
-            JOIN Coleta_Amostra_LocalColeta ca ON m.CodigoDoIBGE = ca.fk_Municipio_CodigoDoIBGE
-        GROUP BY 
-            m.NomeMunicipio, 
-            e.UF 
-        HAVING COUNT(ca.NumeroDaAmostra) > 10;
-        """
+        st.session_state.current_query = ""
+
+    if "selected_dict" not in st.session_state:
+            st.session_state.selected_dict = None
 
 # definindo queries de cada botão
     PREDEFINED_QUERIES = {
@@ -249,88 +238,116 @@ with aba3:
         """
     }
 
-    def set_query(query_key):
-        st.session_state.current_query = PREDEFINED_QUERIES[query_key]
+    dicionarios = {
+        "dict1": """
+        #### Municípios com mais de 10 amostras.
+        **Objetivo:** Listar o nome dos municípios, seus estados e a quantidade de amostras coletadas 
+        em cada município, considerando apenas municípios com mais de 10 amostras coletadas.
+        """,
 
-    c1, c2, c3, c4, c5, c6, c7, c8 = st.columns(8)
+        "dict2": """
+        #### Municípios e formas de abastecimento. 
+        **Objetivo:** Listar todos os municípios e seus estados, mostrando também o nome da forma de 
+        abastecimento, se houver. Inclui municípios que não estão associados a nenhuma forma de abastecimento.
+        """,
+
+        "dict3": """
+        #### Filtro por data específica.
+        **Objetivo:** Obter detalhes completos (município, estado, data/hora da coleta, número da amostra, parâmetro 
+        analisado, resultado e data do laudo) para todas as amostras coletadas em uma data específica (2014-10-21).
+        """,
+
+        "dict4": """
+        #### Filtro por média de parâmetro.
+        **Objetivo:** Obter a média dos resultados de todas as análises realizadas para o parâmetro 'Aphanocapsa sp.'.
+        """,
+
+        "dict5": """
+        #### Municipios com creches que excedem um parâmetro.
+        **Objetivo:** Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Creche' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
+        """,
+
+        "dict6": """
+        #### Laudos mais recentes agrupados por média de parâmetro.
+        **Objetivo:** Para cada parâmetro analisado, mostrar a data do laudo mais recente e a média dos resultados, agrupados por parâmetro e data do laudo.
+        """,
+
+        "dict7": """
+        #### Locais de coleta acima da média em Cylindrospermopsis sp.
+        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('São Paulo') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
+        """,
+
+        "dict8": """
+        #### Filtro de amostras dentro com parâmetro Cylindrospermopsis sp. em um intervalo.
+        **Objetivo:** Encontrar os números das amostras que tiveram resultados de análise para o parâmetro 'Cylindrospermopsis sp.' fora do intervalo de 6.5 a 108.5.
+        """
+    }
+
+    def set_query(query_key, dict_key):
+        st.session_state.current_query = PREDEFINED_QUERIES[query_key]
+        st.session_state.selected_dict = dict_key
+
+    c1, c2, c3, c4 = st.columns(4)
+    c5, c6, c7, c8 = st.columns(4)
 
     c1.button(
         "Municípios com mais de 10 amostras", 
         use_container_width=True,
         on_click=set_query,
-        args=("mais_10_amostras",)
+        args=("mais_10_amostras", "dict1")
     )
         
     c2.button(
         "Municípios e formas de abastecimento", 
         use_container_width=True,
         on_click=set_query,
-        args=("municipios_abastecimento",)
+        args=("municipios_abastecimento", "dict2")
     )
 
     c3.button(
         "Filtro por data específica", 
         use_container_width=True,
         on_click=set_query,
-        args=("filtro_data",)
+        args=("filtro_data", "dict3")
     )
     
     c4.button(
-        "Filtro por média de parâmetro.",
+        "Filtro por média de parâmetro",
         use_container_width=True,
         on_click=set_query,
-        args=("media_parametro",)
+        args=("media_parametro", "dict4")
     )
     
     c5.button(
-        "Filtro dos municipios com creches que excedem um parâmetro.",
+        "Filtro dos municipios com creches que excedem um parâmetro",
         use_container_width=True,
         on_click=set_query,
-        args=("forma_abastecimento_excede_parametro",)
+        args=("forma_abastecimento_excede_parametro", "dict5")
     )
     
     c6.button(
-        "Filtro dos laudos mais recentes e média por parâmetro.",
+        "Filtro dos laudos mais recentes e média por parâmetro",
         use_container_width=True,
         on_click=set_query,
-        args=("laudo_data_parametro",)
+        args=("laudo_data_parametro", "dict6")
     )
     
     c7.button(
-        "Filtro dos locais de coleca acima da média num parâmetro.",
+        "Filtro dos locais de coleca acima da média em um parâmetro",
         use_container_width=True,
         on_click=set_query,
-        args=("local_acima_media",)
+        args=("local_acima_media", "dict7")
     )
 
     c8.button(
-        "Filtro de amostras dentro com parâmetro em um intervalo.",
+        "Filtro de amostras dentro com parâmetro em um intervalo",
         use_container_width=True,
         on_click=set_query,
-        args=("entre_parametro",)
+        args=("entre_parametro", "dict8")
     )
-    
-    st.markdown("""
-        #### Dicionário de cada busca:
-        - **Municípios com mais de 10 amostras.** Objetivo: Listar o nome dos municípios, seus estados e a quantidade de amostras coletadas 
-        em cada município, considerando apenas municípios com mais de 10 amostras coletadas.
-                    
-        - **Municípios e formas de abastecimento.** Objetivo: Listar todos os municípios e seus estados, mostrando também o nome da forma de 
-        abastecimento, se houver. Inclui municípios que não estão associados a nenhuma forma de abastecimento.
-                    
-        - **Filtro por data específica.** Objetivo: Obter detalhes completos (município, estado, data/hora da coleta, número da amostra, parâmetro 
-        analisado, resultado e data do laudo) para todas as amostras coletadas em uma data específica (2014-10-21).
-        
-        - **Filtro por média de parâmetro.** Objetivo: Obter a média dos resultados de todas as análises realizadas para o parâmetro 'Aphanocapsa sp.'.
-        
-        - **Municipios com creches que excedem um parâmetro:** Objetivo: Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Creche' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
-        
-        - **Laudos mais recentes agrupados por média de parâmetro:** Objetivo: Para cada parâmetro analisado, mostrar a data do laudo mais recente e a média dos resultados, agrupados por parâmetro e data do laudo.
-        
-        - **Locais de coleta acima da média em Cylindrospermopsis sp.:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('São Paulo') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
-        
-        - **Filtro de amostras dentro com parâmetro Cylindrospermopsis sp. em um intervalo.** Objetivo: Encontrar os números das amostras que tiveram resultados de análise para o parâmetro 'Cylindrospermopsis sp.' fora do intervalo de 6.5 a 108.5.
-    """)
+
+    if st.session_state.selected_dict:
+        st.markdown(dicionarios[st.session_state.selected_dict])
 
     st.markdown("---")
 
