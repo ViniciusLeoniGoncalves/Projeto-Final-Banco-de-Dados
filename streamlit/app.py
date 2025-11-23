@@ -304,7 +304,7 @@ with aba3:
     )
 
     c8.button(
-        "Filtro de amostras dentro com parâmetro em um intervalo."
+        "Filtro de amostras dentro com parâmetro em um intervalo.",
         use_container_width=True,
         on_click=set_query,
         args=("entre_parametro",)
