@@ -186,15 +186,15 @@ with aba3:
                      AND ca.Hora = a.fk_Amostra_Hora
                      AND ca.NumeroDaAmostra = a.fk_Amostra_NumeroDaAmostra
                 JOIN Classificacao c ON a.fk_Classificacao_Parametro_ciano_ =c.Parametro_ciano_
-            WHERE ca.TipoDoLocal = 'Creche'
+            WHERE ca.TipoDoLocal = 'Grupo de casas'
               AND c.Parametro_ciano_ = 'Cylindrospermopsis sp.'
               AND a.Resultado > 0.5
               AND m.NomeMunicipio IN 
-                ( -- Subconsulta para garantir que o município tenha amostra em 'Creche'
+                ( -- Subconsulta para garantir que o município tenha amostra em 'Grupo de casas'
                       SELECT DISTINCT m2.NomeMunicipio
                       FROM Municipio m2
                         JOIN Coleta_Amostra_LocalColeta ca2 ON m2.CodigoDoIBGE =ca2.fk_Municipio_CodigoDoIBGE
-                      WHERE ca2.TipoDoLocal = 'Creche'
+                      WHERE ca2.TipoDoLocal = 'Grupo de casas'
                 );
         """,
         
@@ -266,8 +266,8 @@ with aba3:
         """,
 
         "dict5": """
-        #### Municipios com creches que excedem um parâmetro.
-        **Objetivo:** Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Creche' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
+        #### Municipios com Grupo de Casas que excedem um parâmetro.
+        **Objetivo:** Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Grupo de casas' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
         """,
 
         "dict6": """
@@ -322,7 +322,7 @@ with aba3:
     )
     
     c5.button(
-        "Filtro dos municipios com creches que excedem um parâmetro",
+        "Filtro dos municipios com Grupo de Casas que excedem um parâmetro",
         use_container_width=True,
         on_click=set_query,
         args=("forma_abastecimento_excede_parametro", "dict5")
