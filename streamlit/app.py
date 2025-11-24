@@ -130,7 +130,9 @@ with aba3:
             GROUP BY 
                 m.NomeMunicipio, 
                 e.UF 
-            HAVING COUNT(ca.NumeroDaAmostra) > 10;
+            HAVING COUNT(ca.NumeroDaAmostra) > 10
+            ORDER BY COUNT(ca.NumeroDaAmostra) DESC;
+
             """,
             
         "municipios_abastecimento": """
@@ -184,15 +186,15 @@ with aba3:
                      AND ca.Hora = a.fk_Amostra_Hora
                      AND ca.NumeroDaAmostra = a.fk_Amostra_NumeroDaAmostra
                 JOIN Classificacao c ON a.fk_Classificacao_Parametro_ciano_ =c.Parametro_ciano_
-            WHERE ca.TipoDoLocal = 'Creche'
+            WHERE ca.TipoDoLocal = 'Grupo de casas'
               AND c.Parametro_ciano_ = 'Cylindrospermopsis sp.'
               AND a.Resultado > 0.5
               AND m.NomeMunicipio IN 
-                ( -- Subconsulta para garantir que o município tenha amostra em 'Creche'
+                ( -- Subconsulta para garantir que o município tenha amostra em 'Grupo de casas'
                       SELECT DISTINCT m2.NomeMunicipio
                       FROM Municipio m2
                         JOIN Coleta_Amostra_LocalColeta ca2 ON m2.CodigoDoIBGE =ca2.fk_Municipio_CodigoDoIBGE
-                      WHERE ca2.TipoDoLocal = 'Creche'
+                      WHERE ca2.TipoDoLocal = 'Grupo de casas'
                 );
         """,
         
@@ -210,6 +212,7 @@ with aba3:
         
         "local_acima_media": """
             SELECT DISTINCT
+                m.NomeMunicipio,
                 ca.NomeLocal,
                 ca.TipoDoLocal
             FROM Coleta_Amostra_LocalColeta ca
@@ -218,7 +221,7 @@ with aba3:
                              AND ca.Hora = a.fk_Amostra_Hora
                              AND ca.NumeroDaAmostra = a.fk_Amostra_NumeroDaAmostra
             JOIN Classificacao c ON a.fk_Classificacao_Parametro_ciano_ = c.Parametro_ciano_
-            WHERE m.NomeMunicipio = 'São Paulo'
+            WHERE m.NomeMunicipio = 'SALVADOR' AND ca.NomeLocal != ''
               AND c.Parametro_ciano_ = 'Cylindrospermopsis sp.'
               AND a.Resultado > (
             SELECT AVG(Resultado)
@@ -263,8 +266,8 @@ with aba3:
         """,
 
         "dict5": """
-        #### Municipios com creches que excedem um parâmetro.
-        **Objetivo:** Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Creche' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
+        #### Municipios com Grupo de Casas que excedem um parâmetro.
+        **Objetivo:** Encontrar os municípios (nome e UF) que tiveram amostras coletadas em locais cujo tipo é 'Grupo de casas' e que tiveram pelo menos uma análise com resultado superior a 0.5 para o parâmetro 'Cylindrospermopsis sp.'.
         """,
 
         "dict6": """
@@ -274,7 +277,7 @@ with aba3:
 
         "dict7": """
         #### Locais de coleta acima da média em Cylindrospermopsis sp.
-        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('São Paulo') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
+        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('Salvador') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
         """,
 
         "dict8": """
@@ -319,7 +322,7 @@ with aba3:
     )
     
     c5.button(
-        "Filtro dos municipios com creches que excedem um parâmetro",
+        "Filtro dos municipios com Grupo de Casas que excedem um parâmetro",
         use_container_width=True,
         on_click=set_query,
         args=("forma_abastecimento_excede_parametro", "dict5")
@@ -333,7 +336,7 @@ with aba3:
     )
     
     c7.button(
-        "Filtro dos locais de coleca acima da média em um parâmetro",
+        "Filtro dos locais de coleta acima da média em um parâmetro",
         use_container_width=True,
         on_click=set_query,
         args=("local_acima_media", "dict7")
