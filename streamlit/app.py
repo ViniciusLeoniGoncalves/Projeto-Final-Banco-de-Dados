@@ -130,7 +130,9 @@ with aba3:
             GROUP BY 
                 m.NomeMunicipio, 
                 e.UF 
-            HAVING COUNT(ca.NumeroDaAmostra) > 10;
+            HAVING COUNT(ca.NumeroDaAmostra) > 10
+            ORDER BY COUNT(ca.NumeroDaAmostra) DESC;
+
             """,
             
         "municipios_abastecimento": """
@@ -210,6 +212,7 @@ with aba3:
         
         "local_acima_media": """
             SELECT DISTINCT
+                m.NomeMunicipio,
                 ca.NomeLocal,
                 ca.TipoDoLocal
             FROM Coleta_Amostra_LocalColeta ca
@@ -218,7 +221,7 @@ with aba3:
                              AND ca.Hora = a.fk_Amostra_Hora
                              AND ca.NumeroDaAmostra = a.fk_Amostra_NumeroDaAmostra
             JOIN Classificacao c ON a.fk_Classificacao_Parametro_ciano_ = c.Parametro_ciano_
-            WHERE m.NomeMunicipio = 'São Paulo'
+            WHERE m.NomeMunicipio = 'SALVADOR' AND ca.NomeLocal != ''
               AND c.Parametro_ciano_ = 'Cylindrospermopsis sp.'
               AND a.Resultado > (
             SELECT AVG(Resultado)
@@ -274,7 +277,7 @@ with aba3:
 
         "dict7": """
         #### Locais de coleta acima da média em Cylindrospermopsis sp.
-        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('São Paulo') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
+        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
         """,
 
         "dict8": """
@@ -333,7 +336,7 @@ with aba3:
     )
     
     c7.button(
-        "Filtro dos locais de coleca acima da média em um parâmetro",
+        "Filtro dos locais de coleta acima da média em um parâmetro",
         use_container_width=True,
         on_click=set_query,
         args=("local_acima_media", "dict7")
