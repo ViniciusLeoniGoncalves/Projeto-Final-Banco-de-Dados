@@ -277,7 +277,7 @@ with aba3:
 
         "dict7": """
         #### Locais de coleta acima da média em Cylindrospermopsis sp.
-        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
+        **Objetivo:** Encontrar os locais de coleta (NomeLocal, TipoDoLocal) em um município específico ('Salvador') onde foram registradas amostras com resultados de análise para 'Cylindrospermopsis sp.' acima da média de todos os resultados de 'Cylindrospermopsis sp.'.
         """,
 
         "dict8": """
