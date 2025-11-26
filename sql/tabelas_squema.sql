@@ -1,4 +1,7 @@
 /* Lógico_2: */
+CREATE DATABASE IF NOT EXISTS Projeto_Final;
+USE Projeto_final;
+
 
 CREATE TABLE Estado (
     UF CHAR(2) PRIMARY KEY,
@@ -87,7 +90,7 @@ ADD CONSTRAINT FK_Analise_2
 ALTER TABLE Analise ADD CONSTRAINT FK_Analise_3
     FOREIGN KEY (fk_Classificacao_Parametro_ciano_)
     REFERENCES Classificacao (Parametro_ciano_)
-    ON NO ACTION;
+    ON DELETE NO ACTION;
  
 ALTER TABLE Abastecido ADD CONSTRAINT FK_Abastecido_1
     FOREIGN KEY (fk_Municipio_CodigoDoIBGE)
