@@ -43,7 +43,7 @@ pip install pandasql
 
 ## Credenciais
 
-Crie um arquivo .env na raiz do projeto com suas credenciais (Por favor, mantenha o nome do banco fixo como 'Projeto_final'):
+Crie um arquivo `.env` na raiz do projeto com suas credenciais (Por favor, mantenha o nome do banco fixo como 'Projeto_final'):
 ```bash
 db_host=localhost
 db_user=root
