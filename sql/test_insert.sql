@@ -1,3 +1,5 @@
+
+USE Projeto_final;
 --Inserção em ordem de dependencias, fizemos essas inserções para termos ideia da ordem de como fazer no script de população do banco
 
 -- Tabela 1. Estado
