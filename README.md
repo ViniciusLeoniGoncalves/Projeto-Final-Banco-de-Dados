@@ -53,9 +53,15 @@ db_export_path_file="C:\\Users\\SeuUsuario\\CaminhoCompleto\\Projeto-Final-Banco
 
 ```
 
+## Instanciar o banco de dados localmente
+Para instanciar o banco localmente, é necessário, além de ter as tecnologias pré instaladas:
+ - Criar o `.env` conforme acima.
+ - Executar o script python `create_local_database.py` na pasta python. (este irá criar as tabelas na database e populá-las corretamente) 
+
 ## Interface Web hospedada (Streamlit)
 
 A versão online do projeto está disponível em: [Streamlit Community Cloud - Projeto Final](https://projeto-final-banco-de-dados-20252.streamlit.app/).
+
 
 ## Executando a interface Web (Streamlit) localmente
 
