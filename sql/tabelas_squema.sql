@@ -1,31 +1,34 @@
 /* Lógico_2: */
+CREATE DATABASE IF NOT EXISTS Projeto_Final;
+USE Projeto_final;
 
-CREATE TABLE Estado (
+
+CREATE TABLE IF NOT EXISTS Estado (
     UF CHAR(2) PRIMARY KEY,
     Regiao VARCHAR(255)
 );
 
-CREATE TABLE Municipio (
+CREATE TABLE IF NOT EXISTS Municipio (
     CodigoDoIBGE VARCHAR(255) PRIMARY KEY,
     RegionalDeSaude VARCHAR(255),
     NomeMunicipio VARCHAR(255),
     fk_Estado_UF CHAR(2) NOT NULL
 );
 
-CREATE TABLE Abastecimento (
+CREATE TABLE IF NOT EXISTS Abastecimento (
   CodigoFormaDeAbastecimento VARCHAR(255) PRIMARY KEY,
     TipoDaFormaDeAbastecimento VARCHAR(255),
       NomeETA_UTA VARCHAR(255),
     NomeDaFormaDeAbastecimento VARCHAR(255)
 );
 
-CREATE TABLE Abastecido (
+CREATE TABLE IF NOT EXISTS Abastecido (
     fk_Municipio_CodigoDoIBGE VARCHAR(255),
   fk_Abastecimento_CodigoFormaDeAbastecimento VARCHAR(255),
     PRIMARY KEY (fk_Municipio_CodigoDoIBGE, fk_Abastecimento_CodigoFormaDeAbastecimento)
 );
  
- CREATE TABLE Coleta_Amostra_LocalColeta (
+ CREATE TABLE IF NOT EXISTS Coleta_Amostra_LocalColeta (
     NumeroDaAmostra VARCHAR(255),
     DataDeRegistroNoSISAGUA DATETIME,
    
@@ -47,13 +50,13 @@ CREATE TABLE Abastecido (
     PRIMARY KEY (DataColeta, Hora, NumeroDaAmostra)
 );
  
-CREATE TABLE Classificacao (
+CREATE TABLE IF NOT EXISTS Classificacao (
     Grupo VARCHAR(255),
     Parametro_ciano_ VARCHAR(255) PRIMARY KEY
 );
 
 
-CREATE TABLE Analise (
+CREATE TABLE IF NOT EXISTS Analise (
     fk_Amostra_DataColeta DATE,
     fk_Amostra_Hora TIME,
     fk_Amostra_NumeroDaAmostra VARCHAR(255),
@@ -64,6 +67,7 @@ CREATE TABLE Analise (
   
     PRIMARY KEY (DataDoLaudo, fk_Amostra_NumeroDaAmostra, fk_Classificacao_Parametro_ciano_)
 );
+
 
 
 ALTER TABLE Municipio ADD CONSTRAINT FK_Municipio_2
@@ -87,7 +91,7 @@ ADD CONSTRAINT FK_Analise_2
 ALTER TABLE Analise ADD CONSTRAINT FK_Analise_3
     FOREIGN KEY (fk_Classificacao_Parametro_ciano_)
     REFERENCES Classificacao (Parametro_ciano_)
-    ON NO ACTION;
+    ON DELETE NO ACTION;
  
 ALTER TABLE Abastecido ADD CONSTRAINT FK_Abastecido_1
     FOREIGN KEY (fk_Municipio_CodigoDoIBGE)

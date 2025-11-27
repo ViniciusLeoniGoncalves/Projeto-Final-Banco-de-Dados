@@ -43,19 +43,25 @@ pip install pandasql
 
 ## Credenciais
 
-Crie um arquivo .env na raiz do projeto com suas credenciais:
+Crie um arquivo `.env` na raiz do projeto com suas credenciais (Por favor, mantenha o nome do banco fixo como 'Projeto_final'):
 ```bash
 db_host=localhost
 db_user=root
 db_password=SUASENHA
-db_name=NOMEdoBANCO
+db_name=Projeto_final
 db_export_path_file="C:\\Users\\SeuUsuario\\CaminhoCompleto\\Projeto-Final-Banco-de-Dados\\data\\db_export"
 
 ```
 
+## Instanciar o banco de dados localmente
+Para instanciar o banco localmente, é necessário, além de ter as tecnologias pré instaladas:
+ - Criar o `.env` conforme acima.
+ - Executar o script python `create_local_database.py` na pasta python. (este irá criar as tabelas na database e populá-las corretamente) 
+
 ## Interface Web hospedada (Streamlit)
 
 A versão online do projeto está disponível em: [Streamlit Community Cloud - Projeto Final](https://projeto-final-banco-de-dados-20252.streamlit.app/).
+
 
 ## Executando a interface Web (Streamlit) localmente
 
